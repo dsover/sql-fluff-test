@@ -1,0 +1,12 @@
+[sqlfluff]
+exclude_rules = None
+dialect = ansi
+
+[sqlfluff:rules]
+max_line_length = 120
+indent_unit = space
+indent_size = 4
+comma_style = leading
+capitalisation_policy = lower
+allowed_keywords = None
+tab_space_size = 4
