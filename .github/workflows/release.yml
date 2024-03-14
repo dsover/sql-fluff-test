@@ -9,18 +9,12 @@ on:
   workflow_dispatch:
 jobs:
   release:
+    if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v3
       with:
         fetch-depth: '0'
-    - name: Build changelog
-      id: build_changelog
-      uses: mikepenz/release-changelog-builder-action@main
-      with:
-        configuration: 'release-changelog-builder-config.json'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Bump version and push tag
       id: version_bump
       uses: anothrNick/github-tag-action@1.67.0      # Don't use @master or @v1 unless you're happy to test the latest version
@@ -28,6 +22,16 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.PAT }} # if you don't want to set write permissions use a PAT token
         WITH_V: true
         # PRERELEASE: true
+    - name: Build changelog
+      id: build_changelog
+      uses: mikepenz/release-changelog-builder-action@main
+      with:
+        configuration: 'release-changelog-builder-config.json'
+        fromTag: ${{steps.version_bump.outputs.old_tag}}
+        toTag: ${{steps.version_bump.outputs.new_tag}}
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAT }}
+    
     - name: Create release
       id: create_release
       uses: actions/create-release@latest
