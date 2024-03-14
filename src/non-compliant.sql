@@ -4,6 +4,7 @@ SELECT
     , LAST_NAME
     , EMAIL
     , TEST_COLUMN
+    , TEST_COLUMN_2
 FROM USERS WHERE STATUS = 'active' AND EMAIL LIKE '%@example.com';
 
 -- Single line, mixed case, aliases not lowercase
