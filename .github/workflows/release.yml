@@ -1,24 +1,3 @@
-# name: Bump version v2
-# on:
-#   workflow_dispatch:
-#     inputs:
-#       versionType:
-#         description: 'The type of version bump to perform: major, minor, patch'
-#         required: true
-#         default: 'patch'
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@master
-#       - name: Bump version and push tag
-#         uses: hennejg/github-tag-action@v4.3.1
-#         with:
-#           github_token: ${{ secrets.PAT }}
-#           default_bump: ${{ github.event.inputs.versionType }} 
-
-
-#           # example 2: on merge to master from pull request (recommended)
 name: Bump version
 on:
   pull_request:
@@ -43,21 +22,14 @@ jobs:
         configuration: 'release-changelog-builder-config.json'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Create release
-      id: create_release
-      uses: actions/create-release@latest
-      env:
-        GITHUB_TOKEN: ${{ secrets.PAT }} # This token is provided by Actions, you do not need to create your own token
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        body: ${{steps.build_changelog.outputs.changelog}}
-        draft: false
-        prerelease: false
-
-    # - name: Bump version and push tag
-    #   uses: anothrNick/github-tag-action@1.67.0      # Don't use @master or @v1 unless you're happy to test the latest version
+    # - name: Create release
+    #   id: create_release
+    #   uses: actions/create-release@latest
     #   env:
-    #     GITHUB_TOKEN: ${{ secrets.PAT }} # if you don't want to set write permissions use a PAT token
-    #     WITH_V: true
-    #     # PRERELEASE: true
+    #     GITHUB_TOKEN: ${{ secrets.PAT }} # This token is provided by Actions, you do not need to create your own token
+    #   with:
+    #     tag_name: ${{ github.ref }}
+    #     release_name: Release ${{ github.ref }}
+    #     body: ${{steps.build_changelog.outputs.changelog}}
+    #     draft: false
+    #     prerelease: false
