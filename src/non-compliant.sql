@@ -1,7 +1,7 @@
 -- Long line, mixed case
 SELECT
-    FIRST_NAME,
-    LAST_NAME
+    FIRST_NAME
+    , LAST_NAME
     , EMAIL
 FROM USERS WHERE STATUS = 'active' AND EMAIL LIKE '%@example.com';
 
