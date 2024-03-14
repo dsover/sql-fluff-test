@@ -3,6 +3,7 @@ SELECT
     FIRST_NAME
     , LAST_NAME
     , EMAIL
+    , TEST_COLUMN
 FROM USERS WHERE STATUS = 'active' AND EMAIL LIKE '%@example.com';
 
 -- Single line, mixed case, aliases not lowercase
