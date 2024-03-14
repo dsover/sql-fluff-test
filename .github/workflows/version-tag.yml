@@ -1,8 +1,11 @@
-name: Bump version
+name: Bump version v2
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      versionType:
+        description: 'The type of version bump to perform: major, minor, patch'
+        required: true
+        default: 'patch'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,4 +15,4 @@ jobs:
         uses: hennejg/github-tag-action@v4.3.1
         with:
           github_token: ${{ secrets.PAT }}
-          default_bump: feature 
+          default_bump: ${{ github.event.inputs.versionType }} 
