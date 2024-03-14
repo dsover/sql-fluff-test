@@ -1,19 +1,18 @@
 name: Bump version
+# on:
+#   pull_request:
+#     types:
+#       - closed
+#     branches:
+#       - main
 on:
-  pull_request:
-    types:
-      - closed
-    branches:
-      - main
-
+  workflow_dispatch:
 jobs:
   release:
-    if: github.event.pull_request.merged == true 
     runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v3
       with:
-        ref: ${{ github.event.pull_request.merge_commit_sha }}
         fetch-depth: '0'
     - name: Build changelog
       id: build_changelog
