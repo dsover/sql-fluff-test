@@ -1,3 +1,3 @@
 select col1
 from
-    table1
+    table2
