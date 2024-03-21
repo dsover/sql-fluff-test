@@ -9,8 +9,8 @@ FROM users WHERE status = 'active' AND email LIKE '%@example.com';
 
 -- Single line, mixed case, aliases not lowercase
 SELECT
-    u.first_name
-    , u.last_name
+    u.last_name
+    , u.first_name
     , o.order_date
     , o.order_amount
 FROM users AS u
